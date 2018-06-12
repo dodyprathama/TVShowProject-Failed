@@ -1,9 +1,24 @@
-{% extends 'base.html' %}
-{% block body %} 
-{% if session['name'] %}
-<h1>Hi {{ session['name'] }}</h1>
-<a href="{{ url_for('logout') }}" class="btn btn-primary">Logout</a>
-{% else %}
-<h1>YOU ARE NOT LOGIN.</h1>
-<a href="{{ url_for('authenticate') }}" class="btn btn-primary">Login or Register</a>
-{% endif %} {% endblock %}
+{% extends 'base.html' %} {% block body %}
+
+<div class="row">
+   {% for tv_show in tv_shows %}
+   <div class="col-sm-3 mb-3">
+      <div class="card">
+         <img class="card-img-top" src="{{ tv_show.image }}" alt="Card image cap">
+         <div class="card-body">
+            <p class="card-text text-center">{{ tv_show.name }}--{{ tv_show.like_by.id }}--</p>
+            {% if tv_show. %}
+            <p class="card-text text-center">
+               <a href="{{ url_for('like', user_id = session['user_id'], tvshow_api_id = tv_show.api_id) }}">Like</a>
+            </p>
+            {% else %}
+            <p class="card-text text-center">
+               <a href="#">Unlike</a>
+            </p>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+   {% endfor %}
+</div>
+{% endblock %}
